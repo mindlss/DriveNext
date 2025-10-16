@@ -56,8 +56,14 @@ ThemeData getAppTheme() {
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: Colors.white,
-      labelStyle: AppTypography.input,
+      labelStyle: AppTypography.input.copyWith(color: AppColors.textSecondary),
+      hintStyle: AppTypography.bodySecondary.copyWith(
+        color: AppColors.textSecondary,
+      ),
+      errorStyle: AppTypography.inputError.copyWith(color: AppColors.error),
       contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+      alignLabelWithHint: true,
+
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(AppRadius.small),
         borderSide: BorderSide(color: AppColors.border),
@@ -74,8 +80,9 @@ ThemeData getAppTheme() {
         borderRadius: BorderRadius.circular(AppRadius.small),
         borderSide: BorderSide(color: AppColors.error),
       ),
-      hintStyle: AppTypography.bodySecondary.copyWith(
-        color: AppColors.textSecondary,
+      focusedErrorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(AppRadius.small),
+        borderSide: BorderSide(color: AppColors.error, width: 2),
       ),
     ),
 

@@ -1,3 +1,4 @@
+import 'package:drivenext/app/widgets/app_text_field.dart';
 import 'package:drivenext/app/theme/colors.dart';
 import 'package:drivenext/app/theme/typography.dart';
 import 'package:flutter/material.dart';
@@ -14,11 +15,15 @@ class _LoginScreenState extends State<LoginScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  bool _obscurePassword = true;
+  final _emailFieldKey = GlobalKey<AppTextFieldState>();
+  final _passwordFieldKey = GlobalKey<AppTextFieldState>();
 
   void _onLogin() {
-    if (_formKey.currentState?.validate() ?? false) {
-      // TODO: добавить вызов auth usecase / cubit / provider
+    final isEmailValid = _emailFieldKey.currentState?.isValid() ?? false;
+    final isPasswordValid = _passwordFieldKey.currentState?.isValid() ?? false;
+
+    if (isEmailValid && isPasswordValid) {
+      // TODO: Авторизация
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(const SnackBar(content: Text('Авторизация...')));
@@ -28,7 +33,6 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
       body: Center(
@@ -57,15 +61,15 @@ class _LoginScreenState extends State<LoginScreen> {
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 64),
-                TextFormField(
+
+                AppTextField(
+                  label: 'Электронная почта',
+                  hint: 'Введите электронную почту',
+                  key: _emailFieldKey,
                   controller: _emailController,
-                  decoration: const InputDecoration(
-                    labelText: 'Введите электронную почту',
-                  ),
-                  keyboardType: TextInputType.emailAddress,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Введите электронную почту';
+                      return 'Это поле является обязательным';
                     }
                     if (!value.contains('@')) {
                       return 'Некорректный email';
@@ -74,29 +78,16 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                 ),
                 const SizedBox(height: 16),
-                TextFormField(
+
+                AppTextField(
+                  label: 'Пароль',
+                  hint: 'Введите пароль',
+                  key: _passwordFieldKey,
                   controller: _passwordController,
-                  obscureText: _obscurePassword,
-                  decoration: InputDecoration(
-                    labelText: 'Введите пароль',
-                    suffixIcon: IconButton(
-                      icon: Icon(
-                        size: 18,
-                        color: AppColors.iconSecondary,
-                        _obscurePassword
-                            ? Icons.visibility_off_outlined
-                            : Icons.visibility_outlined,
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          _obscurePassword = !_obscurePassword;
-                        });
-                      },
-                    ),
-                  ),
+                  obscureText: true,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Введите пароль';
+                      return 'Это поле является обязательным';
                     }
                     if (value.length < 6) {
                       return 'Минимум 6 символов';
@@ -105,16 +96,21 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                 ),
                 const SizedBox(height: 24),
-                FilledButton.icon(
-                  onPressed: _onLogin,
-                  label: const Text('Войти'),
-                ),
-                const SizedBox(height: 12),
                 TextButton(
                   onPressed: () {
                     // TODO: переход на экран регистрации
                   },
                   child: const Text('Создать аккаунт'),
+                ),
+                const SizedBox(height: 32),
+                FilledButton.icon(
+                  onPressed: _onLogin,
+                  label: const Text(
+                    'Войти',
+                    textHeightBehavior: TextHeightBehavior(
+                      leadingDistribution: TextLeadingDistribution.even,
+                    ),
+                  ),
                 ),
               ],
             ),

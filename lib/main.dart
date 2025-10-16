@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-// Импорт твоей темы
 import 'app/theme/app_theme.dart';
 
-// Импорт стартового экрана (например, экран входа)
 import 'features/auth/login/login_screen.dart';
 
-// Если используешь router — можешь позже заменить стартовый экран на router
+// TODO: Роутер
 // import 'app/router/app_router.dart';
 
 void main() {
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]).then((_) {
+    runApp(const MyApp());
+  });
 }
 
 class MyApp extends StatelessWidget {
@@ -19,15 +24,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'DriveNext', // или название твоего приложения
+      title: 'DriveNext',
       debugShowCheckedModeBanner: false,
-
-      // Применяем кастомную тему
       theme: getAppTheme(),
-
-      // Если потом добавишь dark theme — просто добавь сюда:
-      // darkTheme: getAppDarkTheme(),
-      // themeMode: ThemeMode.system,
 
       // Пока что просто первый экран
       home: const LoginScreen(),
