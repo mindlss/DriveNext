@@ -1,7 +1,10 @@
+import 'package:drivenext/app/widgets/app_filled_button.dart';
+import 'package:drivenext/app/widgets/app_text_button.dart';
 import 'package:drivenext/app/widgets/app_text_field.dart';
 import 'package:drivenext/app/theme/colors.dart';
 import 'package:drivenext/app/theme/typography.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -96,21 +99,41 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                 ),
                 const SizedBox(height: 24),
-                TextButton(
+                AppTextButton(
+                  text: 'Забыли пароль?',
                   onPressed: () {
-                    // TODO: переход на экран регистрации
+                    //TODO: Восстановление пароля;
                   },
-                  child: const Text('Создать аккаунт'),
                 ),
+
                 const SizedBox(height: 32),
-                FilledButton.icon(
+
+                AppFilledButton(
+                  label: 'Войти',
+                  style: FilledButtonStyle.primary,
                   onPressed: _onLogin,
-                  label: const Text(
-                    'Войти',
-                    textHeightBehavior: TextHeightBehavior(
-                      leadingDistribution: TextLeadingDistribution.even,
-                    ),
+                ),
+
+                const SizedBox(height: 16),
+
+                AppFilledButton(
+                  icon: SvgPicture.asset(
+                    'assets/icons/google.svg',
+                    width: 20,
+                    height: 20,
                   ),
+                  label: 'Войти через Google',
+                  style: FilledButtonStyle.social,
+                  onPressed: () {
+                    //TODO: Авторизация Google;
+                  },
+                ),
+                const SizedBox(height: 64),
+                AppTextButton(
+                  text: 'Зарегистрироваться',
+                  onPressed: () {
+                    //TODO: Регистрация;
+                  },
                 ),
               ],
             ),

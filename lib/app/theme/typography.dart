@@ -30,10 +30,18 @@ class AppTypography {
     color: AppColors.textSecondary,
   );
 
-  static const button = TextStyle(
+  static const filledButton = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w500,
     height: 24 / 14,
+    letterSpacing: 0.0,
+    color: AppColors.textPrimary,
+  );
+
+  static const textButton = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+    height: 20 / 14,
     letterSpacing: 0.0,
     color: AppColors.textPrimary,
   );

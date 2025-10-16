@@ -33,7 +33,7 @@ ThemeData getAppTheme() {
       titleLarge: AppTypography.title,
       bodyLarge: AppTypography.body,
       bodyMedium: AppTypography.bodySecondary,
-      labelLarge: AppTypography.button,
+      labelLarge: AppTypography.filledButton,
     ),
 
     // Стили кнопок
@@ -41,7 +41,7 @@ ThemeData getAppTheme() {
       style: FilledButton.styleFrom(
         backgroundColor: AppColors.primary,
         foregroundColor: Colors.white,
-        textStyle: AppTypography.button,
+        textStyle: AppTypography.filledButton,
         padding: const EdgeInsets.symmetric(
           vertical: AppSpacing.large,
           horizontal: AppSpacing.large,
