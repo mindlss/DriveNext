@@ -38,7 +38,7 @@ class _SplashScreenState extends State<SplashScreen> {
     if (isAuthorized) {
       context.go(AppRoutes.home);
     } else {
-      context.go(AppRoutes.login);
+      context.go(AppRoutes.onboarding);
     }
   }
 

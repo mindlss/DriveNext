@@ -6,6 +6,7 @@ class AppColors {
   static const background = Color(0xFFFFFFFF);
   static const error = Color(0xFFF04438);
   static const border = Color(0xFFE0E0E0);
+  static const indicatorGray = Color(0xFFE4E7EC);
 
   static const textPrimary = Color(0xFF1E1E1E);
   static const textSecondary = Color(0xFF667085);
