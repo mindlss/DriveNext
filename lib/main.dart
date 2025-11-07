@@ -2,20 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'app/theme/app_theme.dart';
+import 'app/router/app_router.dart';
+import 'core/network/network_manager.dart';
 
-import 'features/auth/login/login_screen.dart';
-
-// TODO: Роутер
-// import 'app/router/app_router.dart';
-
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations([
+
+  // Инициализация сервисов (синглтонов)
+  await NetworkManager().init();
+
+  await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
-  ]).then((_) {
-    runApp(const MyApp());
-  });
+  ]);
+
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -23,13 +24,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'DriveNext',
       debugShowCheckedModeBanner: false,
       theme: getAppTheme(),
-
-      // Пока что просто первый экран
-      home: const LoginScreen(),
+      routerConfig: appRouter,
     );
   }
 }

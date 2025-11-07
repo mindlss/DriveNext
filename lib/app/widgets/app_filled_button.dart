@@ -30,9 +30,12 @@ class _AppFilledButtonState extends State<AppFilledButton> {
   bool _pressed = false;
 
   MainAxisAlignment _getMainAxisAlignment() {
-    if (widget.alignment == Alignment.centerLeft)
+    if (widget.alignment == Alignment.centerLeft) {
       return MainAxisAlignment.start;
-    if (widget.alignment == Alignment.centerRight) return MainAxisAlignment.end;
+    }
+    if (widget.alignment == Alignment.centerRight) {
+      return MainAxisAlignment.end;
+    }
     return MainAxisAlignment.center;
   }
 
@@ -104,11 +107,12 @@ class _AppFilledButtonState extends State<AppFilledButton> {
 
     await Future.delayed(const Duration(milliseconds: 50));
     setState(() => _pressed = false);
-
-    final renderBox = context.findRenderObject() as RenderBox;
-    final localPosition = renderBox.globalToLocal(details.globalPosition);
-    if (renderBox.size.contains(localPosition)) {
-      widget.onPressed();
+    if (mounted) {
+      final renderBox = context.findRenderObject() as RenderBox;
+      final localPosition = renderBox.globalToLocal(details.globalPosition);
+      if (renderBox.size.contains(localPosition)) {
+        widget.onPressed();
+      }
     }
   }
 
